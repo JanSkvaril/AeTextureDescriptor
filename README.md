@@ -7,6 +7,12 @@ Autoencoder-based texture descriptor proposed in Master Thesis [TODO:cite]. The 
 - SEM texture - trained with SEM texture images
 
 ## Exmple usage
+Install after clonning:
+```
+pip install .
+```
+
+Usage:
 ```python
 from AEDescriptor import * 
 imgage = cv.imread("image.png", cv.IMREAD_GRAYSCALE)
