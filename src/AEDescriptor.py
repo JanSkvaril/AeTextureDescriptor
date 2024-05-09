@@ -6,18 +6,24 @@ import os
 import ml
 import numpy as np
 import cv2 as cv
-MODEL_REPOSITORY_URL = "https://github.com/JanSkvaril/AeTextureDescriptor/raw/main/models/general/"
+
+
+MODEL_REPOSITORY_URL = "https://github.com/JanSkvaril/AeTextureDescriptor/raw/main/models"
 
 class LossFunction(Enum):
     FFT = "FFT"
     PERCEPTUAL = "PERCEPTUAL"
 
+class DescriptorTarget(Enum):
+    GENERAL = "general"
+    SEM = "sem"
+
 SUPPORTED_DIMS = [16,64,256]
 
 class AEDescriptor:
-    def __init__(self, filename, config_path = None, model_path = None):
+    def __init__(self, filename,target:DescriptorTarget = DescriptorTarget.GENERAL, model_path = None):
 
-        self.config_path = config_path  
+        self.target = target
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.filename = filename
         self.model_path = model_path
@@ -28,11 +34,14 @@ class AEDescriptor:
         cache_dir = tempfile.gettempdir()
         if self.model_path is not None:
             cache_dir = self.model_path
-        destination = cache_dir + "/" + self.filename
+        cache_dir = os.path.join(cache_dir,self.target.value)
+        if not os.path.exists(cache_dir):
+            os.mkdir(cache_dir)
+        destination = f"{cache_dir}/{self.filename}"
 
         if not os.path.exists(destination):     
-            print("Downloading model...")
-            url = MODEL_REPOSITORY_URL + self.filename      
+            print(f"Downloading model to {cache_dir}")
+            url = f"{MODEL_REPOSITORY_URL}/{self.target.value}/{self.filename}"      
             torch.hub.download_url_to_file(url, dst=destination)
         model = torch.load(destination, map_location="cpu")
         model.eval()
