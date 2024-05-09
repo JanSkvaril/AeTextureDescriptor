@@ -1,0 +1,34 @@
+{
+    "general": [
+        {
+            "loss": "FFT",
+            "dim": 16,
+            "filename": "AE_72_16_FFTLossLowSigma.pt"
+        },
+        {
+            "loss": "FFT",
+            "dim": 64,
+            "filename": "AE_74_64_FFTLossLowSigma.pt"
+        },
+        {
+            "loss": "FFT",
+            "dim": 256,
+            "filename": "AE_76_256_FFTLossLowSigma.pt"
+        },
+        {
+            "loss": "Perceptual",
+            "dim": 16,
+            "filename": "AE_12_16_PercepturalOnly.pt"
+        },
+        {
+            "loss": "Perceptual",
+            "dim": 64,
+            "filename": "AE_14_64_PercepturalOnly.pt"
+        },
+        {
+            "loss": "Perceptual",
+            "dim": 256,
+            "filename": "AE_16_256_PercepturalOnly.pt"
+        }
+    ]
+}
