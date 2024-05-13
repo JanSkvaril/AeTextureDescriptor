@@ -86,7 +86,7 @@ class AEDescriptor:
         img = np.float32(image) /  np.max(image)
         img = cv.resize(img, (SIZE, SIZE))
         img = torch.tensor(img)
-        img = img.to("cuda")
+        img = img.to(self.device)
         img = img.unsqueeze(0).unsqueeze(0)
         output = self.model(img).detach().cpu().numpy()
         return self.model.z.detach().cpu().numpy()[0]
