@@ -22,7 +22,8 @@ MODEL_REPOSITORY_URL = "https://github.com/JanSkvaril/AeTextureDescriptor/raw/ma
 class LossFunction(Enum):
     """Loss function used for training the autoencoder"""
     FFT = "FFT"
-    PERCEPTUAL = "PERCEPTUAL"
+    PERCEPTUAL = "Perceptural"
+    AUTOCORRELATION = "AutoCorr"
 
 class DescriptorTarget(Enum):
     """Target of the descriptor"""
