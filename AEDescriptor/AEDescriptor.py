@@ -37,10 +37,10 @@ class DescriptorTarget(Enum):
 SUPPORTED_DIMS = [16,64,256]
 
 class AEDescriptor:
-    def __init__(self, filename,target:DescriptorTarget = DescriptorTarget.GENERAL, model_path = None):
+    def __init__(self, filename = "",target:DescriptorTarget = DescriptorTarget.GENERAL, model_path = None):
         """
             Autoencoder based descriptor for texture analysis.
-            - filename: Name of the model file to load, use GetModelName to get the name
+            - filename: Name of the model file to load, use GetModelName to get the name. If empty, default model is loaded
             - target: Target of the descriptor (General or SEM)
             - model_path: Path to the directory where the models are stored. If None, the models are stored in a temporary directory
             The model is downloaded from the repository if it is not present in the model_path
@@ -53,7 +53,8 @@ class AEDescriptor:
             # => [0.67124015 0.6368097 ... 0.41859195] 16 features
             ```
         """
-
+        if filename == "": 
+            filename = GetModelName(LossFunction.PERCEPTUAL, 16)
         self.target = target
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.filename = filename
